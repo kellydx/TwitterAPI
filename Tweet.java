@@ -10,6 +10,7 @@ import java.io.*;
 /**
  * 
  */
+public class Tweet
 {
     private String tweetContent;    
     private int retweet;
@@ -64,8 +65,35 @@ import java.io.*;
                     tweetList.put(tweetContent,t);
                 }                     
             }                
-    }
-   
+      public void maxRetweet(int n){
+        
+         try {
+            FileWriter writer = new FileWriter("maxRetweet.txt", true);        
+            List<Integer> retweetCount = new ArrayList<Integer>();     
+            for (String key: tweetList.keySet()){
+                retweetCount.add(tweetList.get(key).getRetweet());
+                Collections.sort(retweetCount,Collections.reverseOrder());
+            }
+            List<String> list = new ArrayList<String>();
+            writer.write("Top"+ n+" tweets have the most retweet\r\n");  
+            for (int i=0; i<n; i++){                          
+                for (String key : tweetList.keySet()) {                   
+                    if ((tweetList.get(key)).getRetweet()== retweetCount.get(i)){   
+                        if (list.size()>n-1) 
+							break;    
+						if (!list.contains(key))                    			
+							list.add(key);	  
+                     }            
+                    }   
+            }
+            
+            for (int i = 0; i < list.size(); i++) {					
+					writer.write(list.get(i)+"    Retweeted " +retweetCount.get(i)+" times\r\n"); 				
+			}
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }   
 }    
-
 
