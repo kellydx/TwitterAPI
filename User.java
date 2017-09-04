@@ -98,6 +98,38 @@ public class User
             e.printStackTrace();
         } 
     }    
-    
+	
+	 /**
+     * This method finds the top n users who have the maximum followers
+ 	 * Write the ouput in the file "maxFollowers.txt"
+     */
+    public void maxFollowers(int n){
+	try {
+            FileWriter writer = new FileWriter("maxFollowers.txt", true);        
+            List<Integer> followers= new ArrayList<Integer>();
+        	List<String> list1 = new ArrayList<String>();     
+       		for (String key :userList.keySet()) {                  
+            	 followers.add(userList.get(key).getFollower()); 
+             	Collections.sort(followers, Collections.reverseOrder());      
+	        }                 
+			writer.write("Top "+n+" users have the most followers\r\n");  	
+  			 for (int i=0; i<n; i++){                   
+                	for (String key : userList.keySet()) {                   
+                  		if ((userList.get(key)).getFollower()== followers.get(i)){    
+							if (list1.size()>n-1) 
+								break;    
+							if (!list1.contains(key))                    			
+								list1.add(key);	                     			     
+                  		} 						
+                }     
+            }
+
+			for (int i = 0; i < list1.size(); i++) {					
+					writer.write(list1.get(i)+" has total "+ followers.get(i)+" followers \r\n"); 				
+			}
+        writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+          }    
        	
 }
