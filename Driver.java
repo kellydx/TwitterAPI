@@ -34,7 +34,15 @@ public class Driver{
 	 System.out.println("Enter the number of record to be displayed: ");
 		Scanner scanner = new Scanner(System. in); 
 		int n = scanner.nextInt();
-	UserListperHour h = new UserListperHour();
+		tweet t = new tweet(txt); 
+      	t.getTweetData();
+	  	t.maxRetweet(n);
+	  
+     	User u = new User(txt);
+      	u.getData();
+      	u.maxTweets(n);
+	  	u.maxFollowers(n);
+		UserListperHour h = new UserListperHour();
 	  	h.maxTweetperHour(txt,n);
 	}
 }
