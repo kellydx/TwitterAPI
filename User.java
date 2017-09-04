@@ -66,6 +66,38 @@ public class User
             }         
             
     }
+	
+	 public void maxTweets(int n){
+	try {
+            FileWriter writer = new FileWriter("maxTweets.txt", true);        
+            List<Integer> retweetCount = new ArrayList<Integer>();        
+ 			List<Integer> counts= new ArrayList<Integer>();
+        	for (String key :userList.keySet()) {                  
+             	counts.add(userList.get(key).getCount()); 
+             	Collections.sort(counts, Collections.reverseOrder() );      
+       		}         
+        
+       		writer.write("\nTop "+n+" users tweeted the most\r\n");           
+        	List<String> list = new ArrayList<String>();     
+            for (int i=0; i<n; i++){                   
+                for (String key : userList.keySet()) {                   
+                  	if ((userList.get(key)).getCount()== counts.get(i)){    
+						if (list.size()>n-1) 
+							break;    
+					if (!list.contains(key))                    			
+						list.add(key);                   			     
+                  	} 						
+                }     
+            }
+
+			for (int i = 0; i < list.size(); i++) {					
+				writer.write(list.get(i)+" tweeted total "+ +counts.get(i)+" times\r\n"); 				
+			}
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    }    
     
        	
 }
