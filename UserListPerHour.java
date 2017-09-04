@@ -48,7 +48,31 @@ public class UserListperHour
                				}	
 						}
 					}
-				}				
+				}	
+				FileWriter writer = new FileWriter("maxTweetperHour.txt", true); 
+				List<Integer> counts= new ArrayList<Integer>();
+        		for (String key :users.keySet()) {                  
+             		counts.add(users.get(key)); 
+             		Collections.sort(counts,Collections.reverseOrder());      
+        		}         
+				writer.write("\r\nTop "+n+ " users who tweeted the most for "+hours.get(x)+"\r\n");
+				
+        		List<String> list = new ArrayList<String>();
+				for (int i=0; i<n; i++){
+					for (String key : users.keySet()) {                   
+                  		if ((users.get(key))== counts.get(i)){
+							if (list.size()>n-1) 
+								break;               
+							if (!list.contains(key))                    			
+								list.add(key);							                   
+                  		} 
+					}
+				}
+
+				for (int i = 0; i < list.size(); i++) {					
+					writer.write(list.get(i)+" tweeted total "+ +counts.get(i)+" times\r\n"); 				
+				}
+ 				writer.close();
         	} 			
         } 
 	catch (IOException e) {
